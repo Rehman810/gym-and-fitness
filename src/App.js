@@ -1,7 +1,10 @@
 import "./App.css";
 import Login from "./component/Main";
 import Home from "./Home/Home";
+import Add from "./Home/Create";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Edit from "./Home/EDit";
+import SignOut from "./Home/signOut";
 
 function App() {
   const uid = localStorage.getItem("uid");
@@ -9,11 +12,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {uid ? (
+        <>
           <Route path="/" element={<Home />} />
-        ) : (
+          <Route path="/create" element={<Add />} />
           <Route path="/login" element={<Login />} />
-        )}
+        </>
       </Routes>
     </BrowserRouter>
   );

@@ -8,10 +8,19 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import SignOut from "./signOut";
 
 function Home() {
   const [users, setUsers] = useState([]);
-  const [overdueUsers, setOverdueUsers] = useState([]); // Add this state
+  // const [overdueUsers, setOverdueUsers] = useState([]); // Add this state
+
+  const handleCreate = () => {
+    navigate("/create");
+  };
+
+  const handleEdit = () => {
+    navigate("/edit");
+  };
 
   const fetchPost = async () => {
     await getDocs(collection(db, "users")).then((querySnapshot) => {
@@ -19,16 +28,16 @@ function Home() {
         ...doc.data(),
         id: doc.id,
       }));
-      const currentDate = new Date("September 12, 2023");
-      const overdueUsers = newData.filter((user) => {
-        const paymentDate = user.Date.toDate(); // Assuming you store paymentDate as a Firestore Timestamp
-        const oneMonthLater = new Date(paymentDate);
-        oneMonthLater.setMonth(paymentDate.getMonth() + 1);
-        return currentDate > oneMonthLater && !user.hasPaid;
-      });
+      // const currentDate = new Date("September 12, 2023");
+      // const overdueUsers = newData.filter((user) => {
+      //   const paymentDate = user.Date.toDate(); // Assuming you store paymentDate as a Firestore Timestamp
+      //   const oneMonthLater = new Date(paymentDate);
+      //   oneMonthLater.setMonth(paymentDate.getMonth() + 1);
+      //   return currentDate > oneMonthLater && !user.hasPaid;
+      // });
 
       setUsers(newData);
-      setOverdueUsers(overdueUsers);
+      // setOverdueUsers(overdueUsers);
       console.log(users, newData);
     });
   };
@@ -98,6 +107,7 @@ function Home() {
             width: "65%",
           }}
         >
+          <SignOut />
           <div className="form-group">
             <input
               type="search"
@@ -108,7 +118,7 @@ function Home() {
               onChange={handleChange}
             />
           </div>
-          <ul>
+          {/* <ul>
             {overdueUsers.map((user) => (
               <li
                 style={{ fontSize: 50, backgroundColor: "black" }}
@@ -117,7 +127,7 @@ function Home() {
                 {user.Name}
               </li>
             ))}
-          </ul>
+          </ul> */}
           <div style={{ backgroundColor: "white" }}>
             <Table striped borderd hover size="sm">
               <thead>
@@ -132,10 +142,15 @@ function Home() {
                       flexDirection: "row",
                       justifyContent: "center",
                       alignItems: "center",
-                      // margin: 10,
                     }}
                   >
-                    <Add />
+                    Actions
+                    <img
+                      onClick={handleCreate}
+                      src="https://cdn-icons-png.flaticon.com/512/6711/6711415.png"
+                      alt="add"
+                      style={{ width: "30px", cursor: "pointer" }}
+                    />
                   </th>
                 </tr>
               </thead>
@@ -187,7 +202,11 @@ function Home() {
                                 src="https://cdn-icons-png.flaticon.com/512/3687/3687412.png"
                                 alt="delete"
                               />
-                              <Edit id={user.id} />
+                              <Edit
+                                id={user.id}
+                                name={user.Name}
+                                rollNum={user.RollNum}
+                              />
                             </td>{" "}
                           </tr>
                         );

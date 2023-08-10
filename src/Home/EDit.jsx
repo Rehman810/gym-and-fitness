@@ -3,39 +3,42 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Data from "./Data";
+import { doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { db } from "../firebase";
 
 function Edit(props) {
-  let navigate = useNavigate();
-  const options = ["active", "Inactive"];
-
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [id, setId] = useState("");
-  const [status, setStatus] = useState(options[0]);
+  const [rollNum, setRollNum] = useState();
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleEdit = () => {
     setShow(true);
-    setTitle(props.title);
+    setName(props.name);
     setId(props.id);
-    setStatus(props.status);
+    setRollNum(props.rollNum);
   };
 
-  const index = Data.map((e) => {
-    return e.id;
-  }).indexOf(id);
-
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
 
-    let a = Data[index];
-    a.title = title;
-    a.state = status;
-    navigate("/");
-    setShow(false);
+    const washingtonRef = doc(db, "users", id);
+    try {
+      await updateDoc(washingtonRef, {
+        Name: name,
+        RollNum: rollNum,
+      });
+      setShow(false);
+      console.log("Document field updated successfully!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.error("Error updating document field:", error);
+    }
   };
-
   return (
     <>
       <img
@@ -52,24 +55,23 @@ function Edit(props) {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Title</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
                 autoFocus
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
-            <div>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              >
-                {options.map((option, idx) => (
-                  <option key={idx}>{option}</option>
-                ))}
-              </select>
-            </div>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Roll Num</Form.Label>
+              <Form.Control
+                type="text"
+                autoFocus
+                value={rollNum}
+                onChange={(e) => setRollNum(e.target.value)}
+              />
+            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>

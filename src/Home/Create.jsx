@@ -20,16 +20,10 @@ import { db } from "../firebase";
 
 function Add() {
   let navigate = useNavigate();
-  const options = ["active", "Inactive"];
 
-  const [name, setName] = useState("");
-  const [num, setNum] = useState();
-
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleEdit = () => {
-    setShow(true);
-  };
+  const [name, setName] = useState();
+  const [rollNum, setRollNum] = useState();
+  const [contact, setContact] = useState();
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -62,17 +56,15 @@ function Add() {
     try {
       const docRef = addDoc(collection(db, "users"), {
         Name: name,
-        RollNum: num,
+        RollNum: rollNum,
+        Contact: contact,
         date: date,
-        Date: serverTimestamp(), // Store the current timestamp
-        hasPaid: false, // Assuming you have a field to track payment status
+        Date: serverTimestamp(),
       });
     } catch (e) {
       console.error("Error adding document: ", e);
     }
 
-    // navigate("/");
-    setShow(false);
     Swal.fire({
       position: "top-end",
       icon: "success",
@@ -80,56 +72,59 @@ function Add() {
       showConfirmButton: false,
       timer: 1500,
     });
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 1000);
+    navigate("/");
   };
 
   return (
     <>
-      Add User
-      <img
-        onClick={handleEdit}
-        src="https://cdn-icons-png.flaticon.com/512/6711/6711415.png"
-        alt="add"
-        style={{ width: "30px", cursor: "pointer" }}
-      />
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add Participant</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Name"
-                autoFocus
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Roll Num</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Roll-Num"
-                autoFocus
-                onChange={(e) => setNum(e.target.value)}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={(e) => handleSave(e)}>
-            Create
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <div className="createBox">
+        <div className="container">
+          <div className="top-header">
+            <header>Create Participant</header>
+          </div>
+          <div className="input-field">
+            <input
+              type="text"
+              className="input"
+              placeholder="UserName"
+              required
+              onChange={(e) => setName(e.target.value)}
+            />
+            <i className="bx bx-user"></i>
+          </div>
+          <div className="input-field">
+            <input
+              style={{ marginTop: 20 }}
+              type="text"
+              className="input"
+              placeholder="Roll Number"
+              required
+              onChange={(e) => setRollNum(e.target.value)}
+            />
+            <i className="bx bx-lock-alt"></i>
+          </div>
+          <div className="input-field">
+            <input
+              style={{ marginTop: 20 }}
+              type="text"
+              className="input"
+              placeholder="Contact Number"
+              required
+              onChange={(e) => setContact(e.target.value)}
+            />
+            <i className="bx bx-lock-alt"></i>
+          </div>
+          <div className="input-field">
+            <input
+              type="submit"
+              className="submit"
+              value="Create"
+              style={{ marginTop: 20, width: "90%" }}
+              onClick={handleSave}
+            />
+          </div>
+        </div>
+      </div>
     </>
   );
 }
