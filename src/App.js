@@ -3,8 +3,7 @@ import Login from "./component/Main";
 import Home from "./Home/Home";
 import Add from "./Home/Create";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Edit from "./Home/EDit";
-import SignOut from "./Home/signOut";
+import OverDue from "./Home/OverDue";
 
 function App() {
   const uid = localStorage.getItem("uid");
@@ -16,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/create" element={<Add />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/overDue" element={<OverDue />} />
         </>
       </Routes>
     </BrowserRouter>

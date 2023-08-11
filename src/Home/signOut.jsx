@@ -2,6 +2,7 @@ import React from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const SignOut = () => {
   const navigate = useNavigate();
@@ -17,11 +18,9 @@ const SignOut = () => {
       });
   };
   return (
-    <div style={{ backgroundColor: "red", cursor: "pointer" }}>
-      <span style={{ color: "white" }} onClick={() => signout()}>
-        SignOut
-      </span>
-    </div>
+    <Button variant="danger" onClick={() => signout()}>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SignOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </Button>
   );
 };
 

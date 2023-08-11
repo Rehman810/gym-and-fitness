@@ -31,12 +31,10 @@ body{
    
 }
 .createBox{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: absolute;
+    top: 7rem;
     padding: 5vw;
     margin-left: 20rem;
-    margin-top: 8rem;
     border: .5px solid black;
     border-radius: 50px;
     width: 57%;
