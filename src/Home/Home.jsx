@@ -1,9 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Data from "./Data";
 import Edit from "./EDit";
-import Add from "./Create";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import {
@@ -103,7 +101,7 @@ function Home() {
       <Fragment>
         <div
           style={{
-            margin: "6rem",
+            margin: "5rem",
             width: "65%",
           }}
         >
@@ -143,12 +141,6 @@ function Home() {
                     }}
                   >
                     Actions
-                    {/* <img
-                      onClick={handleCreate}
-                      src="https://cdn-icons-png.flaticon.com/512/6711/6711415.png"
-                      alt="add"
-                      style={{ width: "30px", cursor: "pointer" }}
-                    /> */}
                   </th>
                 </tr>
               </thead>

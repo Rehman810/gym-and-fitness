@@ -1,21 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import Data from "./Data";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 import Swal from "sweetalert2";
 import { serverTimestamp } from "firebase/firestore";
 
-import {
-  collection,
-  addDoc,
-  getDocs,
-  doc,
-  setDoc,
-  Timestamp,
-} from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 function Add() {
@@ -75,9 +64,16 @@ function Add() {
     navigate("/");
   };
 
+  const handleCheckOverdue = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <div className="createBox">
+        <Button onClick={handleCheckOverdue}>
+          &nbsp;&nbsp;&nbsp;&nbsp;Back&nbsp;&nbsp;&nbsp;&nbsp;
+        </Button>
         <div className="container">
           <div className="top-header">
             <header>Create Participant</header>

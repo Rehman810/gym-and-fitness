@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import Data from "./Data";
 import { doc, updateDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 
 function Edit(props) {

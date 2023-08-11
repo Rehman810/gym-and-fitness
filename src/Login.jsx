@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Form = () => {
   const navigate = useNavigate();
@@ -23,7 +24,11 @@ const Form = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Try Again",
+          text: "Wrong email or password!",
+        });
       });
   };
 

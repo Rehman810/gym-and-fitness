@@ -1,18 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Data from "./Data";
-import Edit from "./EDit";
-import Add from "./Create";
+
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import {
-  collection,
-  getDocs,
-  doc,
-  deleteDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const OverDue = () => {
@@ -21,7 +12,7 @@ const OverDue = () => {
 
   const calculateOverdueUsers = async () => {
     const usersSnapshot = await getDocs(collection(db, "users"));
-    const currentDate = new Date();
+    const currentDate = new Date(); //i.e. "September 12, 2023"
 
     const newOverdueUsers = usersSnapshot.docs.filter((userDoc) => {
       const userData = userDoc.data();
@@ -102,20 +93,28 @@ const OverDue = () => {
               <div className="scroll">
                 <Table striped borderd hover size="sm">
                   <tbody>
-                    {overdueUsers.map((userDoc) => (
+                    {overdueUsers.length > 0 ? (
+                      overdueUsers.map((userDoc) => (
+                        <tr key={userDoc.id}>
+                          <td className="td">{userDoc.data().Name}</td>
+                          <td className="roll">{userDoc.data().RollNum}</td>
+                          <td className="td">{userDoc.data().date}</td>
+                          <td className="td">
+                            <Button
+                              onClick={() => handleUpdatePayment(userDoc.id)}
+                            >
+                              Update Payment
+                            </Button>
+                          </td>{" "}
+                        </tr>
+                      ))
+                    ) : (
                       <tr>
-                        <td className="td">{userDoc.data().Name}</td>
-                        <td className="roll">{userDoc.data().RollNum}</td>
-                        <td className="td">{userDoc.data().date}</td>
-                        <td className="td">
-                          <Button
-                            onClick={() => handleUpdatePayment(userDoc.id)}
-                          >
-                            Update Payment
-                          </Button>
-                        </td>{" "}
+                        <td colSpan="4" className="td">
+                          No dues available.
+                        </td>
                       </tr>
-                    ))}
+                    )}
                   </tbody>
                 </Table>
               </div>

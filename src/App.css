@@ -55,7 +55,7 @@ body{
     margin-left: 10rem;
     border: .5px solid black;
     border-radius: 50px;
-    width: 25%;
+    width: 30%;
 }
 .container{
     width: 350px;
@@ -106,7 +106,7 @@ i{
     font-size: 15px;
     height: 45px;
     outline: none;
-    width: 100%;
+    width:87%;
     background: rgba(255,255,255,0.7);
     cursor: pointer;
     transition: .3s;
