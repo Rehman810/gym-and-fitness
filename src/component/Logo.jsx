@@ -7,9 +7,9 @@ const Logo = () => {
       <div className="back">
         <img
           style={{
-            width: 150,
-            height: 150,
-            marginLeft: 50,
+            width: "8vw",
+            height: "8vw",
+            marginLeft: "10vw",
           }}
           src={logo}
           alt="logo"

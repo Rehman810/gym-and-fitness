@@ -18,9 +18,20 @@ const SignOut = () => {
       });
   };
   return (
-    <Button variant="danger" onClick={() => signout()}>
+    // <Button
+    //   variant="danger"
+    //   style={{ width: "15vw" }}
+    //   onClick={() => signout()}
+    // >
+    //   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SignOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    // </Button>
+    <span
+      className="btn"
+      style={{ backgroundColor: "red", fontSize: "1vw", color: "white" }}
+      onClick={() => signout()}
+    >
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SignOut&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </Button>
+    </span>
   );
 };
 

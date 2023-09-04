@@ -1,7 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
+import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Edit from "./EDit";
+import Edit from "../Home/EDit";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import {
@@ -12,7 +13,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import SignOut from "./signOut";
+import SignOut from "../Home/signOut";
 
 function Home() {
   let navigate = useNavigate();
@@ -101,7 +102,7 @@ function Home() {
       <Fragment>
         <div
           style={{
-            margin: "5rem",
+            margin: "5vw",
             width: "65%",
           }}
         >
@@ -110,18 +111,47 @@ function Home() {
               type="search"
               class="form-control"
               id="formGroupExampleInput"
-              placeholder="Serach Title"
+              placeholder="Serach User"
               style={{ marginBottom: 20 }}
               onChange={handleChange}
             />
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button onClick={OverDue}>Check Overdue Users</Button>
+            {/* <Button style={{ width: "15vw" }} onClick={OverDue}>
+              Check Overdue Users
+            </Button> */}
+            <span
+              className="btn"
+              style={{
+                backgroundColor: "blue",
+                color: "white",
+                fontSize: "1vw",
+              }}
+              onClick={OverDue}
+            >
+              Check Overdue Users
+            </span>
             <SignOut />
-            <Button variant="success" onClick={handleCreate}>
+            {/* <Button
+              variant="success"
+              style={{ width: "15vw" }}
+              onClick={handleCreate}
+            >
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Create
               User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </Button>
+            </Button> */}
+            <span
+              className="btn"
+              style={{
+                backgroundColor: "green",
+                color: "white",
+                fontSize: "1vw",
+              }}
+              onClick={handleCreate}
+            >
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Create
+              User&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
           </div>
 
           <div style={{ backgroundColor: "white" }}>
